@@ -100,7 +100,6 @@
         <module name="EmptyBlock"/>
         <module name="EmptyCatchBlock">
             <property name="exceptionVariableName" value="ignored"/>
-            <property name="commentFormat" value="^Ignored: .+"/>
         </module>
         <module name="LeftCurly">
             <property name="ignoreEnums" value="false"/>
@@ -145,7 +144,8 @@
         <module name="HiddenField">
             <property name="ignoreConstructorParameter" value="true"/>
         </module>
-        <module name="IllegalCatch"/>
+        <!-- Sometimes we need to catch some -->
+        <!-- <module name="IllegalCatch"/> -->
         <!-- Seems to be useless without "classes" property -->
         <module name="IllegalInstantiation"/>
         <module name="IllegalThrows"/>
@@ -295,9 +295,10 @@
         <module name="CommentsIndentation"/>
         <!-- Too abstract and complicatedly configurable -->
         <module name="DescendantToken"/>
-        <module name="FinalParameters">
+        <!-- Copy of FinalLocalVariable -->
+        <!-- <module name="FinalParameters">
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
-        </module>
+        </module> -->
         <module name="Indentation"/>
         <module name="NoCodeInFile"/>
         <!-- TODO -->
@@ -316,9 +317,7 @@
 
         <!-- MODIFIERS -->
         <!-- Not needed -->
-        <module name="ClassMemberImpliedModifier">
-            <property name="violateImpliedStaticOnNestedInterface" value="false"/>
-        </module>
+        <!-- <module name="ClassMemberImpliedModifier"/> -->
         <!-- Not needed -->
         <!-- <module name="InterfaceMemberImpliedModifier"/> -->
         <module name="ModifierOrder"/>
