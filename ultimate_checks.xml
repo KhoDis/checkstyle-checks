@@ -26,36 +26,37 @@
     </module>
     
     <!-- TODO https://checkstyle.org/config_filters.html#SuppressionFilter -->
-    <module name="SuppressionFilter">
+    <!-- <module name="SuppressionFilter">
         <property name="file" value="${org.checkstyle.google.suppressionfilter.config}" default="checkstyle-suppressions.xml" />
         <property name="optional" value="true"/>
-    </module>
+    </module> -->
 
     <!-- TODO Checks that a package-info.java file exists for each package.     -->
     <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
     <!-- <module name="JavadocPackage"/> -->
 
-    <!-- TODO Checks whether files end with a new line.                        -->
-    <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
+    <!-- MISC -->
+    <!-- See https://checkstyle.org/config_misc.html -->
     <module name="NewlineAtEndOfFile"/>
+    <module name="Translation"/>
 
     <!-- TODO Checks that property files contain the same keys.         -->
     <!-- See https://checkstyle.org/config_misc.html#Translation -->
-    <module name="Translation"/>
 
-    <!-- TODO Checks for whitespace                               -->
-    <!-- See http://checkstyle.org/config_whitespace.html -->
-    <module name="FileTabCharacter">
-        <property name="eachLine" value="true"/>
-    </module>
-
-    <!-- TODO -->
-    <module name="FileLength"/>
+    <!-- SIZES -->
+    <!-- TODO: tell why -->
+    <!-- <module name="FileLength"/> -->
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
         <property name="max" value="100"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
+
+    <!-- JAVADOC -->
+    <!-- It is not used for now -->
+    <!-- <module name="JavadocPackage"/> -->
+    <!-- It is not used for now -->
+    <!-- <module name="MissingJavadocPackage"/> -->
 
     <!-- TODO -->
     <!-- Miscellaneous other checks.                   -->
@@ -67,6 +68,11 @@
         <property name="message" value="Line has trailing spaces."/>
     </module>
 
+    <!-- WHITESPACES -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
     <!-- https://checkstyle.sourceforge.io/config.html#TreeWalker -->
     <module name="TreeWalker">
         <property name="fileExtensions" value="java"/>
@@ -76,7 +82,7 @@
         <module name="AnnotationLocation"/>
         <!-- Bad practice -->
         <!-- <module name="AnnotationOnSameLine"/> -->
-        <!-- TODO(didn't understand) <module name="AnnotationUseStyle"/> -->
+        <module name="AnnotationUseStyle"/>
         <module name="MissingDeprecated">
             <property name="violateExecutionOnNonTightHtml" value="true"/>
         </module>
@@ -183,7 +189,8 @@
         <!-- <module name="ParameterAssignment"/> -->
         <module name="RequireThis"/>
         <!-- Many returns => code is attempting to do too much -->
-        <module name="ReturnCount"/>
+        <!-- Sometimes it's worsening the situation -->
+        <!-- <module name="ReturnCount"/> -->
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
         <module name="StringLiteralEquality"/>
@@ -205,6 +212,7 @@
         <!-- <module name="RegexpHeader"/> -->
 
         <!-- IMPORTS -->
+        <!-- https://checkstyle.org/config_imports.html -->
         <module name="AvoidStarImport"/>
         <module name="AvoidStaticImport"/>
         <module name="CustomImportOrder">
@@ -214,332 +222,175 @@
         <module name="IllegalImport"/>
         <!-- Not needed for personal use -->
         <!-- <module name="ImportControl"/> -->
-        <!-- TODO: questionable, too complicated -->
-        <module name="ImportOrder"/>
+        <!-- Makes wrong stuff -->
+        <!-- <module name="ImportOrder"/> -->
         <module name="RedundantImport"/>
         <module name="UnusedImports">
             <property name="processJavadoc" value="false"/>
         </module>
         
-
-
-        <module name="OuterTypeFilename"/>
-        <module name="IllegalTokenText">
-            <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
-            <property name="format" value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
-            <property name="message" value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
-        </module>
-
-        <!-- Checks for Javadoc comments.                     -->
-        <!-- See https://checkstyle.org/config_javadoc.html -->
+        <!-- JAVADOC -->
+        <!-- https://checkstyle.org/config_javadoc.html -->
+        <module name="AtclauseOrder"/>
         <module name="InvalidJavadocPosition"/>
+        <module name="JavadocBlockTagLocation">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="JavadocContentLocationCheck"/>
         <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <!-- <module name="JavadocVariable"/> -->
+        <module name="JavadocMissingLeadingAsterisk">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="JavadocMissingWhitespaceAfterAsterisk">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="JavadocParagraph">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
         <module name="JavadocStyle"/>
-        <!-- <module name="MissingJavadocMethod"/> -->
+        <module name="JavadocTagContinuationIndentation">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="MissingJavadocMethod">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="NonEmptyAtclauseDescription">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="RequireEmptyLineBeforeBlockTagGroup">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="SingleLineJavadoc">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <module name="SummaryJavadocCheck">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
+        </module>
+        <!-- Does nothing without configuration -->
+        <!-- <module name="WriteTag"/> -->
 
-        <!-- Checks for Naming Conventions.                  -->
-        <!-- See https://checkstyle.org/config_naming.html -->
+        <!-- METRICS -->
+        <!-- https://checkstyle.org/config_metrics.html -->
+        <module name="BooleanExpressionComplexity"/>
+        <!-- Sometimes class complexity is inavoidable -->
+        <!-- <module name="ClassDataAbstractionCoupling"/> -->
+        <!-- Sometimes class complexity is inavoidable -->
+        <!-- <module name="ClassFanOutComplexity"/> -->
+        <module name="CyclomaticComplexity"/>
+        <!-- Unintuitive -->
+        <!-- <module name="JavaNCSS"/> -->
+        <module name="NPathComplexity"/>
+
+        <!-- MISC -->
+        <!-- https://checkstyle.org/config_misc.html -->
+        <module name="ArrayTypeStyle"/>
+        <module name="AvoidEscapedUnicodeCharacters"/>
+        <module name="CommentsIndentation"/>
+        <!-- Too abstract and complicatedly configurable -->
+        <module name="DescendantToken"/>
+        <module name="FinalParameters">
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
+        </module>
+        <module name="Indentation"/>
+        <module name="NoCodeInFile"/>
+        <!-- TODO -->
+        <!-- <module name="OrderedProperties"/> -->
+        <module name="OuterTypeFilename"/>
+        <module name="TodoComment">
+            <property name="format" value="(TODO)|(FIXME)"/>
+        </module>
+        <!-- Strange if you know what you're doing -->
+        <!-- <module name="TrailingComment"/> -->
+        <!-- Too specific -->
+        <!-- <module name="UncommentedMain"/> -->
+        <!-- TODO -->
+        <!-- <module name="UniqueProperties"/> -->
+        <module name="UpperEll"/>
+
+        <!-- MODIFIERS -->
+        <!-- Not needed -->
+        <module name="ClassMemberImpliedModifier">
+            <property name="violateImpliedStaticOnNestedInterface" value="false"/>
+        </module>
+        <!-- Not needed -->
+        <!-- <module name="InterfaceMemberImpliedModifier"/> -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- CONVENTIONS -->
+        <module name="AbbreviationAsWordInName"/>
+        <module name="AbstractClassName"/>
+        <module name="CatchParameterName"/>
+        <module name="ClassTypeParameterName"/>
         <module name="ConstantName"/>
+        <module name="IllegalIdentifierName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LambdaParameterName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
         <module name="MemberName"/>
         <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
         <module name="PackageName"/>
         <module name="ParameterName"/>
+        <module name="PatternVariableName"/>
+        <module name="RecordComponentName"/>
+        <module name="RecordTypeParameterName"/>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-        <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowEscapesForControlCharacters" value="true"/>
-            <property name="allowByTailComment" value="true"/>
-            <property name="allowNonPrintableEscapes" value="true"/>
-        </module>
+        <!-- REGEXP (Too scecific) -->
+        <!-- https://checkstyle.org/config_regexp.html#Regexp -->
 
-        <!-- Checks for imports                              -->
-        <!-- See https://checkstyle.org/config_imports.html -->
-        <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/>
-        <!-- defaults to sun.* packages -->
-        <module name="RedundantImport"/>
-        <module name="UnusedImports">
-            <property name="processJavadoc" value="false"/>
-        </module>
-
-        <module name="OneTopLevelClass"/>
-        <module name="NoLineWrap">
-            <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
-        </module>
-        
-        <module name="RightCurly">
-            <property name="id" value="RightCurlySame"/>
-            <property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,
-                    LITERAL_DO"/>
-        </module>
-        <module name="RightCurly">
-            <property name="id" value="RightCurlyAlone"/>
-            <property name="option" value="alone"/>
-            <property name="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,
-                    INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <!-- suppresion is required till https://github.com/checkstyle/checkstyle/issues/7541 -->
-            <property name="id" value="RightCurlyAlone"/>
-            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1]
-                                     or preceding-sibling::*[last()][self::LCURLY]]"/>
-        </module>
-        <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround">
-            <property name="allowEmptyConstructors" value="true"/>
-            <property name="allowEmptyLambdas" value="true"/>
-            <property name="allowEmptyMethods" value="true"/>
-            <property name="allowEmptyTypes" value="true"/>
-            <property name="allowEmptyLoops" value="true"/>
-            <message key="ws.notFollowed" value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
-            <message key="ws.notPreceded" value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
-        </module>
-        <module name="OneStatementPerLine"/>
-        <module name="MultipleVariableDeclarations"/>
-        <module name="ArrayTypeStyle"/>
-        <module name="MissingSwitchDefault"/>
-        <module name="FallThrough"/>
-        <module name="UpperEll"/>
-
-        <!-- Modifier Checks                                    -->
-        <!-- See https://checkstyle.org/config_modifier.html -->
-        <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
-        <module name="ClassMemberImpliedModifier">
-            <property name="violateImpliedStaticOnNestedInterface" value="false"/>
-        </module>
-
-        <module name="EmptyLineSeparator">
-            <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF,
-                    COMPACT_CTOR_DEF"/>
-            <property name="allowNoEmptyLineBetweenFields" value="true"/>
-        </module>
-        <module name="SeparatorWrap">
-            <property name="id" value="SeparatorWrapDot"/>
-            <property name="tokens" value="DOT"/>
-            <property name="option" value="nl"/>
-        </module>
-        <module name="SeparatorWrap">
-            <property name="id" value="SeparatorWrapComma"/>
-            <property name="tokens" value="COMMA"/>
-            <property name="option" value="EOL"/>
-        </module>
-        <module name="SeparatorWrap">
-            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
-            <property name="id" value="SeparatorWrapEllipsis"/>
-            <property name="tokens" value="ELLIPSIS"/>
-            <property name="option" value="EOL"/>
-        </module>
-        <module name="SeparatorWrap">
-            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
-            <property name="id" value="SeparatorWrapArrayDeclarator"/>
-            <property name="tokens" value="ARRAY_DECLARATOR"/>
-            <property name="option" value="EOL"/>
-        </module>
-        <module name="SeparatorWrap">
-            <property name="id" value="SeparatorWrapMethodRef"/>
-            <property name="tokens" value="METHOD_REF"/>
-            <property name="option" value="nl"/>
-        </module>
-        <module name="PackageName">
-            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
-            <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="TypeName">
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                    ANNOTATION_DEF, RECORD_DEF"/>
-            <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="MemberName">
-            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
-            <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="ParameterName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="LambdaParameterName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="CatchParameterName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="LocalVariableName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="PatternVariableName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Pattern variable name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="ClassTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Class type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="RecordComponentName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Record component name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="RecordTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Record type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="MethodTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="InterfaceTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="NoFinalizer"/>
-        <module name="GenericWhitespace">
-            <message key="ws.followed" value="GenericWhitespace ''{0}'' is followed by whitespace."/>
-            <message key="ws.preceded" value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
-            <message key="ws.illegalFollow" value="GenericWhitespace ''{0}'' should followed by whitespace."/>
-            <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
-        </module>
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="2"/>
-        </module>
-        <module name="AbbreviationAsWordInName">
-            <property name="ignoreFinal" value="false"/>
-            <property name="allowedAbbreviationLength" value="0"/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
-                    PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF,
-                    RECORD_COMPONENT_DEF"/>
-        </module>
-        <module name="NoWhitespaceBeforeCaseDefaultColon"/>
-        <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="VariableDeclarationUsageDistance"/>
-        <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
-            <property name="separateLineBetweenGroups" value="true"/>
-            <property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE"/>
-            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
-        </module>
-
-        <module name="MethodParamPad">
-            <property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF,
-                    SUPER_CTOR_CALL, ENUM_CONSTANT_DEF, RECORD_DEF"/>
-        </module>
-        <module name="NoWhitespaceBefore">
-            <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT,
-                    LABELED_STAT, METHOD_REF"/>
-            <property name="allowLineBreaks" value="true"/>
-        </module>
-        <module name="ParenPad"/>
-        <module name="OperatorWrap">
-            <property name="option" value="NL"/>
-            <property name="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
-                    LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF,
-                    TYPE_EXTENSION_AND "/>
-        </module>
-        <module name="AnnotationLocation">
-            <property name="id" value="AnnotationLocationMostCases"/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
-                      RECORD_DEF, COMPACT_CTOR_DEF"/>
-        </module>
-        <module name="AnnotationLocation">
-            <property name="id" value="AnnotationLocationVariables"/>
-            <property name="tokens" value="VARIABLE_DEF"/>
-            <property name="allowSamelineMultipleAnnotations" value="true"/>
-        </module>
-        <module name="NonEmptyAtclauseDescription"/>
-        <module name="InvalidJavadocPosition"/>
-        <module name="JavadocTagContinuationIndentation"/>
-        <module name="SummaryJavadoc">
-            <property name="forbiddenSummaryFragments" value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
-        </module>
-        <module name="JavadocParagraph"/>
-        <module name="RequireEmptyLineBeforeBlockTagGroup"/>
-        <module name="AtclauseOrder">
-            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-            <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
-        </module>
-        <module name="JavadocMethod">
-            <property name="accessModifiers" value="public"/>
-            <property name="allowMissingParamTags" value="true"/>
-            <property name="allowMissingReturnTag" value="true"/>
-            <property name="allowedAnnotations" value="Override, Test"/>
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
-        </module>
-        <module name="MissingJavadocMethod">
-            <property name="scope" value="public"/>
-            <property name="minLineCount" value="-1"/>
-            <property name="allowedAnnotations" value="Override, Test"/>
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF,
-                                   COMPACT_CTOR_DEF"/>
-        </module>
-        <module name="MissingJavadocType">
-            <property name="scope" value="protected"/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                      RECORD_DEF, ANNOTATION_DEF"/>
-            <property name="excludeScope" value="nothing"/>
-        </module>
-        <module name="MethodName">
-            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
-            <message key="name.invalidPattern" value="Method name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="SingleLineJavadoc"/>
-        <module name="EmptyCatchBlock">
-            <property name="exceptionVariableName" value="expected"/>
-        </module>
-        <module name="CommentsIndentation">
-            <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
-        </module>
-        <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
-        <module name="SuppressionXpathFilter">
-            <property name="file" value="${org.checkstyle.google.suppressionxpathfilter.config}" default="checkstyle-xpath-suppressions.xml" />
-            <property name="optional" value="true"/>
-        </module>
-
-        <!-- Checks for Size Violations.                    -->
-        <!-- See https://checkstyle.org/config_sizes.html -->
-        <module name="MethodLength">
-            <property name="max" value="100"/>
-            <property name="countEmpty" value="false"/>
-        </module>
+        <!-- SIZES -->
+        <!-- https://checkstyle.org/config_sizes.html -->
+        <!-- Doesn't have comment ignoring -->
+        <!-- <module name="AnonInnerLength"/> -->
+        <!-- Too scpecific -->
+        <!-- <module name="ExecutableStatementCount"/> -->
+        <module name="LambdaBodyLength"/>
+        <!-- <module name="MethodCount"/> -->
+        <module name="MethodLength"/>
+        <module name="OuterTypeNumber"/>
         <module name="ParameterNumber"/>
+        <module name="RecordComponentNumber"/>
 
-        <!-- Checks for common coding problems               -->
-        <!-- See https://checkstyle.org/config_coding.html -->
-        <module name="EmptyStatement"/>
-        <module name="IllegalInstantiation"/>
-        <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
-        <module name="MissingSwitchDefault"/>
-        <module name="MultipleVariableDeclarations"/>
-        <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
-        <module name="UnnecessaryParentheses"/>
-        <module name="FallThrough"/>
-        
-        <module name="IllegalThrows"/>
-        <module name="IllegalToken"/>
-        <module name="ModifiedControlVariable"/>
-        <module name="MultipleVariableDeclarations"/>
-        <module name="NoFinalizer"/>
-        <module name="NoClone"/>
-        <module name="OneStatementPerLine"/>
-        <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="PackageDeclaration"/>
-        <module name="StringLiteralEquality"/>
-        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
-        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
-        <module name="UnnecessarySemicolonInTryWithResources"/>
+        <!-- WHITESPACES -->
+        <!-- https://checkstyle.org/config_whitespace.html -->
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="EmptyLineSeparator">
+            <property name="allowMultipleEmptyLines" value="false"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+        </module>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoLineWrap"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="NoWhitespaceBeforeCaseDefaultColon"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="SeparatorWrap">
+            <property name="id" value="sepDot"/>
+            <property name="option" value="nl"/>
+            <property name="tokens" value="DOT"/>
+        </module>          
+        <module name="SeparatorWrap">
+            <property name="id" value="sepComma"/>
+            <property name="option" value="eol"/>
+            <property name="tokens" value="COMMA"/>
+        </module>   
+        <module name="SingleSpaceSeparator"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
     </module>
 </module>
